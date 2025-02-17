@@ -28,18 +28,21 @@ const login = async (req, res) => {
       });
     }
 
-    console.log(user);
+    const loginUser = {
+      userId: user.id,
+      username: user.username,
+      email: user.email,
+      createdAt: user.created_at,
+    };
 
-    // user = await getUserQueryById(user.id)
+    const token = await generateJWT(loginUser);
 
-    // const token = await generateJWT(user);
-
-    // res.status(200).json({
-    //   ok: true,
-    //   token: token,
-    //   user: user,
-    //   msg: "Login successful",
-    // });
+    res.status(200).json({
+      ok: true,
+      token: token,
+      user: loginUser,
+      msg: "Login successful",
+    });
   } catch (error) {
     console.error(error);
     res.status(400).json({
@@ -82,14 +85,21 @@ const signup = async (req, res) => {
       });
     }
 
-    // const token = await generateJWT(newUser);
+    const userCreated = {
+      userId: newUser.id,
+      username: newUser.username,
+      email: newUser.email,
+      createdAt: newUser.created_at,
+    };
 
-    // res.status(200).json({
-    //   ok: true,
-    //   user: newUser,
-    //   token: token,
-    //   msg: "User created successfully",
-    // });
+    const token = await generateJWT(userCreated);
+
+    res.status(200).json({
+      ok: true,
+      user: userCreated,
+      token: token,
+      msg: "User created successfully",
+    });
   } catch (error) {
     console.error(error);
     res.status(400).json({
