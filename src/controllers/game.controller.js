@@ -9,8 +9,9 @@ const {
 const startGame = async (req, res) => {
   try {
     const { userIds, userStartedGameId } = req.body;
-
-    let resFindUsers = await findUsersForGame(userIds);
+    let ids = userIds;
+    ids.push(userStartedGameId);
+    let resFindUsers = await findUsersForGame(ids);
 
     if (resFindUsers.ok === false) {
       res.status(400).json({
