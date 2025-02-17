@@ -20,7 +20,7 @@ app.use(morgan("dev"));
 //* ROUTES
 app.use(routes.authRouter);
 app.use(routes.gameRouter);
-
+app.use(routes.userRouter);
 app.listen(process.env.PORT || 4000, () => {
   console.log(`Server listening on port ${process.env.PORT || 4000}`);
 

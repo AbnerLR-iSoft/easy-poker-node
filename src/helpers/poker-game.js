@@ -56,7 +56,7 @@ const determineWinner = (players) => {
     const score = handValue(player.hand);
     if (score > highestValue) {
       highestValue = score;
-      winnerName = player;
+      winner = player;
     }
   });
   return winner;

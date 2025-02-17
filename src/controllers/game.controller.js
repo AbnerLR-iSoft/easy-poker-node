@@ -1,5 +1,10 @@
 const { findUsersForGame } = require("./users.controller");
-const { generatePlayers, generateDeck, shuffleDeck } = require("../helpers");
+const {
+  generatePlayers,
+  generateDeck,
+  shuffleDeck,
+  determineWinner,
+} = require("../helpers");
 
 const startGame = async (req, res) => {
   try {
@@ -15,14 +20,17 @@ const startGame = async (req, res) => {
       });
     }
 
-    let players = generatePlayers(
+    const players = generatePlayers(
       shuffleDeck(generateDeck()),
       resFindUsers.users
     );
 
+    const winner = determineWinner(players);
+
     res.status(200).json({
       ok: false,
       players: players,
+      winner: winner,
       msg: "Generated players for game",
     });
   } catch (error) {
@@ -30,6 +38,7 @@ const startGame = async (req, res) => {
     res.status(400).json({
       ok: false,
       players: [],
+      winner: null,
       msg: "Error while creating game",
     });
   }
