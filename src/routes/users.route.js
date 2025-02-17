@@ -6,6 +6,11 @@ const { getPlayersSchema } = require("../middlewares/joi");
 const { validateJWT } = require("../middlewares/auth");
 const { getPlayers } = require("../controllers");
 
-router.get("/players/:id", joiValidate(getPlayersSchema), getPlayers);
+router.get(
+  "/players/:id",
+  validateJWT,
+  joiValidate(getPlayersSchema),
+  getPlayers
+);
 
 module.exports = { userRouter: router };
