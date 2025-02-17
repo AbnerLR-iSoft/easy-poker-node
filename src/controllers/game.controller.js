@@ -48,6 +48,25 @@ const startGame = async (req, res) => {
   }
 };
 
+const getHistory = async (req, res) => {
+  try {
+    const history = await GameResults.findAll();
+
+    res.status(200).json({
+      ok: true,
+      history: history,
+      msg: "Get history successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({
+      ok: false,
+      history: [],
+      msg: "Error while getting history",
+    });
+  }
+};
+
 const createGameResult = async (players, winner) => {
   try {
     const result = await GameResults.create({
@@ -88,4 +107,5 @@ const generateHandMessage = (hand) => {
 
 module.exports = {
   startGame,
+  getHistory,
 };
